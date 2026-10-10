@@ -228,3 +228,4 @@ artifacts/**
 Config.Build.user.props
 
 lib/
+plugins/
