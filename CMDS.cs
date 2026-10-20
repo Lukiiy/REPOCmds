@@ -33,4 +33,24 @@ public class CMDS : BaseUnityPlugin
             return !CommandAPI.TryHandle(_message);
         }
     }
+
+    [HarmonyPatch(typeof(ChatManager), "Update")]
+    internal static class SingleplayerPatch
+    {
+        private static readonly MethodInfo isOnline = AccessTools.Method(typeof(SemiFunc), nameof(SemiFunc.IsMultiplayer));
+
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> code)
+        {
+            foreach (var ci in code)
+            {
+                if (ci.Calls(isOnline))
+                {
+                    ci.opcode = OpCodes.Ldc_I4_1;
+                    ci.operand = null;
+                }
+
+                yield return ci;
+            }
+        }
+    }
 }
