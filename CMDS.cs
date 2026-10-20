@@ -20,6 +20,9 @@ public class CMDS : BaseUnityPlugin
         gameObject.transform.parent = null;
         gameObject.hideFlags = HideFlags.HideAndDontSave;
 
+        CommandAPI.Register(new Kill());
+        CommandAPI.Register(new Revive());
+
         new Harmony(Info.Metadata.GUID).PatchAll();
     }
 
