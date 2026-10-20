@@ -22,6 +22,7 @@ public class CMDS : BaseUnityPlugin
 
         CommandAPI.Register(new Kill());
         CommandAPI.Register(new Revive());
+        CommandAPI.Register(new Dump());
 
         new Harmony(Info.Metadata.GUID).PatchAll();
     }
